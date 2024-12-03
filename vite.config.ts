@@ -5,5 +5,6 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
 
-  base: "/test-project-viso/",
+  base: "/test-project-viso",
+  // "/test-project-viso",
 });
