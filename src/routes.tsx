@@ -6,7 +6,7 @@ import FavoritesPage from "./pages/FavoritePage";
 
 let router = createBrowserRouter([
   {
-    path: "/",
+    path: "/test-project-viso",
     element: <MainPage />,
   },
   {
