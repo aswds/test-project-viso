@@ -4,6 +4,11 @@ import useRecipeActions from "../hooks/useRecipeActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import RecipeItem from "../components/MealItem";
 import { Link } from "react-router-dom";
+import {
+  EllipsisPagination,
+  PaginationButton,
+  SimplePagination,
+} from "../components/Pagination";
 
 function MainPage() {
   const { fetchRecipes } = useRecipeActions();
@@ -94,45 +99,34 @@ function MainPage() {
 
       {/* Pagination Controls */}
       <div className="flex justify-center items-center mt-6 space-x-2">
-        <button
+        {/* Previous Button */}
+        <PaginationButton
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`px-4 py-2 border rounded ${
-            currentPage === 1
-              ? "text-gray-400 border-gray-300 cursor-not-allowed"
-              : "text-blue-600 border-blue-500 hover:bg-blue-100"
-          }`}
-          aria-label="Previous Page"
-        >
-          Previous
-        </button>
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-          <button
-            key={page}
-            onClick={() => handlePageChange(page)}
-            className={`px-4 py-2 border rounded ${
-              currentPage === page
-                ? "bg-blue-500 text-white"
-                : "text-blue-600 border-blue-500 hover:bg-blue-100"
-            }`}
-            aria-current={currentPage === page ? "page" : undefined}
-            aria-label={`Page ${page}`}
-          >
-            {page}
-          </button>
-        ))}
-        <button
+          label="Previous"
+        />
+
+        {/* Page Numbers */}
+        {totalPages <= 10 ? (
+          <SimplePagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        ) : (
+          <EllipsisPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        )}
+
+        {/* Next Button */}
+        <PaginationButton
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`px-4 py-2 border rounded ${
-            currentPage === totalPages
-              ? "text-gray-400 border-gray-300 cursor-not-allowed"
-              : "text-blue-600 border-blue-500 hover:bg-blue-100"
-          }`}
-          aria-label="Next Page"
-        >
-          Next
-        </button>
+          label="Next"
+        />
       </div>
     </div>
   );
