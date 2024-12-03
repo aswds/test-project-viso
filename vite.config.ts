@@ -7,5 +7,5 @@ export default defineConfig({
   build: {
     outDir: "dist",
   },
-  base: "/test-project-viso",
+  base: "/test-project-viso/",
 });
